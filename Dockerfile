@@ -1,33 +1,33 @@
-# Используем официальный образ PHP с FPM
-FROM php:8.1-fpm
+FROM php:8.2-fpm
 
-# Устанавливаем зависимости для работы с Laravel
+# Установка системных зависимостей
 RUN apt-get update && apt-get install -y \
-    libpng-dev \
-    libjpeg-dev \
-    libfreetype6-dev \
-    zip \
+    unzip \
     git \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd
+    curl \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    libzip-dev \
+    zip \
+    nodejs \
+    npm \
+    && docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd zip
 
-# Устанавливаем Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# Установка Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Копируем проект в контейнер
-COPY . /var/www/html
+# Копируем файлы проекта
+COPY . /var/www
+WORKDIR /var/www
 
-# Устанавливаем рабочую директорию
-WORKDIR /var/www/html
+# Установка зависимостей Laravel
+RUN composer install --no-interaction --prefer-dist --optimize-autoloader \
+    && npm install && npm run build
 
-# Устанавливаем зависимости через Composer
-RUN composer install --no-interaction
+# Установка прав
+RUN chmod -R 755 storage bootstrap/cache
 
-# Выполняем миграции базы данных
-RUN php artisan migrate --force
+EXPOSE 8000
 
-# Открываем порт 80
-EXPOSE 80
-
-# Запускаем PHP-FPM сервер
-CMD ["php-fpm"]
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
