@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    container_name: nginx-container
+    volumes:
+      - ./:/var/www/
+      - ./_Docker/Nginx/conf.d/:/etc/nginx/conf.d/
+    depends_on:
+      - application
+
+  psql:
+    image: postgres:14.18
+    restart: always
+    ports:
+      - "8081:5432"
+    container_name: database-container
+    environment:
+      POSTGRES_DB: LARAVEL_SANCTUM_API
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    volumes:
+      - ./tmp/db:/var/lib/postgresql
+
+  application:
+    build:
+      context: .
+      dockerfile: _Docker/Application/Dockerfile
+    container_name: application-container
+    volumes:
+      - ./:/var/www/
+    depends_on:
+      - psql
+
+#            image:   |   Образ с Docker Hub
+#            ports:   |   
+#          volumes:   |   Способ предохранить данных
+#                     |   Путь от YMl : Путь в контейнере
+#   container_name:   |   Название контейнера
+#       depends_on:   |   Зависимость от другого контейнера
+#            build:   |   Сборка образа из Dockerfile
