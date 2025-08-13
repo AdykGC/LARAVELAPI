@@ -4,7 +4,6 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Courses;
 use Spatie\Permission\Models\Permission;
 
 class RoleSeeder extends Seeder {
@@ -46,8 +45,5 @@ class RoleSeeder extends Seeder {
         $R1->syncPermissions(['View | ALL', 'EDIT | ALL']);
         $R2->syncPermissions(['A']);
         $R3->syncPermissions(['B']);
-
-        User::factory(40)->create();
-        Courses::factory(20)->create();
     }
 }
