@@ -5,7 +5,6 @@ use App\Http\Controllers\Controller;
 
 class getCoursesController extends Controller {
     public function __invoke() {
-        /* ЛОГИКА SAC */
         return response()->json(Courses::all());
     }
 }

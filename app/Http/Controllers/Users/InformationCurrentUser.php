@@ -1,0 +1,12 @@
+<?php namespace App\Http\Controllers\Users;
+
+use App\Http\Controllers\Users\BaseController;
+use App\Models\User;
+
+class InformationCurrentUser extends BaseController{
+    public function __invoke() {
+        /** @var User $user */
+        $user = auth()->user();
+        return $this->service->getCurrentUserInformation($user);
+    }
+}

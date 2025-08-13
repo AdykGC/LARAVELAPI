@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'sanctum',
         'passwords' => 'users',
     ],
 
@@ -44,18 +44,10 @@ return [
             'driver' => 'sanctum',
             'provider' => 'users',
         ],
-        'web_admin' => [
+        'sanctum' => [
             'driver' => 'sanctum',
-            'provider' => 'web_admins',
-        ],
-        'student' => [
-            'driver' => 'sanctum',
-            'provider' => 'student',
-        ],
-        'teacher' => [
-            'driver' => 'sanctum',
-            'provider' => 'teacher',
-        ],
+            'provider' => 'users'
+        ]
     ],
 
     /*
