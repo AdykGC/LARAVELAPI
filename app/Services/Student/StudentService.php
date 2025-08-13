@@ -7,13 +7,7 @@ use App\Models\{
 };
 
 class StudentService {
-    public function getCourse (Student $user){
-        return response()->json([
-            'status' => 'success',
-            'student' => $user->full_name,
-            'courses' => $user->courses
-        ]);
-    }
+
     public function getCourseById (Student $user, int $courseId){
         $course = $user->courses()->where('courses.id', $courseId)->first();
         if (!$course) {
@@ -29,9 +23,6 @@ class StudentService {
         ]);
     }
 
-    public function getInformation (Student $user){
-        return response()->json($user);
-    }
     public function patchProfile(Student $user, array $data){
         if (empty($data)) {
             return response()->json([ 'message' => 'Нет данных для обновления.' ], 422);

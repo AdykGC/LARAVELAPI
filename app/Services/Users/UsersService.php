@@ -224,4 +224,6 @@ class UsersService {
             'Все курсы' => $user->courses
         ]);
     }
+    public function getEnrolledCourseByID($request, $user){}
+    public function patchUser($request, $user){}
 }
