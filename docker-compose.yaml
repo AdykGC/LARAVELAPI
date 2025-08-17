@@ -19,9 +19,10 @@ services:
       - "8081:5432"
     container_name: database-container
     environment:
-      POSTGRES_DB: LARAVEL_SANCTUM_API
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: root
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_PASSWORD}
+      POSTGRES_ROOT_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
       - ./tmp/db:/var/lib/postgresql
 
