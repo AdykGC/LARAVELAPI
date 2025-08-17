@@ -34,3 +34,11 @@ services:
       - ./:/var/www/
     depends_on:
       - psql
+
+#            image:   |   Образ с Docker Hub
+#            ports:   |   
+#          volumes:   |   Способ предохранить данных
+#                     |   Путь от YMl : Путь в контейнере
+#   container_name:   |   Название контейнера
+#       depends_on:   |   Зависимость от другого контейнера
+#            build:   |   Сборка образа из Dockerfile
