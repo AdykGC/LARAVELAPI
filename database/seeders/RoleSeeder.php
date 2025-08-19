@@ -8,7 +8,7 @@ use Spatie\Permission\Models\Permission;
 
 class RoleSeeder extends Seeder {
     public function run(): void {
-        $R1 = Role::firstOrCreate(['guard_name' => 'sanctum', 'name' => 'Website Admin']);
+        $R1 = Role::firstOrCreate(['guard_name' => 'sanctum', 'name' => 'Admin']);
         $R2 = Role::firstOrCreate(['guard_name' => 'sanctum', 'name' => "Teacher"]);
         $R3 = Role::firstOrCreate(['guard_name' => 'sanctum', 'name' => "Student"]);
 
@@ -40,10 +40,9 @@ class RoleSeeder extends Seeder {
             "password" => Hash::make("Qaz123edc"),
         ]);
         $USR3->assignRole($R3);
-        
-        
-        $R1->syncPermissions(['View | ALL', 'EDIT | ALL']);
-        $R2->syncPermissions(['A']);
+
+        $R1->syncPermissions(['C']);
         $R3->syncPermissions(['B']);
+        $R2->syncPermissions(['A']);
     }
 }

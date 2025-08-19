@@ -13,15 +13,7 @@ class Courses extends Model {
         'credits',
         'status'
     ];
-
-    public function students(){
-        return $this->belongsToMany(Student::class, 'courses_to_students', 'course_id', 'student_id');
-    }
-
-    public function teachers(){
-        return $this->belongsToMany(Teacher::class, 'courses_to_teachers', 'course_id', 'teacher_id');
-    }
     public function users(){
-        return $this->belongsToMany(Student::class, 'courses_to_users', 'course_id', 'user_id');
+        return $this->belongsToMany(User::class, 'courses_to_users', 'course_id', 'user_id');
     }
 }
